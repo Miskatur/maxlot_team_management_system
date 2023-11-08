@@ -1,0 +1,16 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+  margin: 0px;
+  padding: 0px;
+}
+
+body {
+  overflow-x: hidden;
+  background-color: #f3f4f6;
+  font-family: 'Poppins', sans-serif;
+  scroll-behavior: smooth;
+  scrollbar-width: 0.1rem;
+}
