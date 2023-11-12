@@ -1,3 +1,5 @@
+@import "keep-react/src/main.min.css";
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -9,8 +11,9 @@
 
 body {
   overflow-x: hidden;
-  background-color: #f3f4f6;
+  background-color: #fff;
   font-family: 'Poppins', sans-serif;
   scroll-behavior: smooth;
   scrollbar-width: 0.1rem;
 }
+

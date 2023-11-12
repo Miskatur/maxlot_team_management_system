@@ -1,11 +1,16 @@
+import { RouterProvider } from "react-router-dom";
+import { router } from "./routes/router";
+import { io } from "socket.io-client";
 
-function App() {
+const socket = io.connect('http://localhost:5000')
+const App = () => {
 
+  socket.on('connection', () => {
+    console.log(socket.id);
+  })
   return (
     <div>
-      <h1 className="text-3xl font-semibold text-textColor">
-        Hello world!
-      </h1>
+      <RouterProvider router={router} />
     </div>
   )
 }
