@@ -10,15 +10,19 @@ const AllTeamMembersTable = ({ teamData, id }) => {
     const dispatch = useDispatch()
     const user = useSelector((state) => state.user.user)
     const { role } = user
-    const [showErrorModalX, setShowErrorModalX] = React.useState(false);
-    const onClickErrorModal = () => {
-        setShowErrorModalX(!showErrorModalX);
+    const [showErrorModalX, setShowErrorModalX] = React.useState(Array(teamData?.members?.length).fill(false));
+
+    const onClickErrorModal = (index) => {
+        const newShowErrorModal = [...showErrorModalX];
+        newShowErrorModal[index] = !newShowErrorModal[index];
+        setShowErrorModalX(newShowErrorModal);
     };
     const token = useToken()
 
-    const unAssignedAUser = (userId) => {
-        dispatch(removeAUserFromATeam(id, userId, token, onClickErrorModal))
+    const unAssignedAUser = (userId, index) => {
+        dispatch(removeAUserFromATeam(id, userId, token, onClickErrorModal, index))
     }
+    console.log('showErrorModal:', showErrorModalX);
 
     return (
         <div className="container p-2 mx-auto sm:p-4 text-gray-800 ">
@@ -39,7 +43,7 @@ const AllTeamMembersTable = ({ teamData, id }) => {
                     </thead>
                     <tbody>
                         {
-                            teamData?.members?.map((user, index) => {
+                            teamData?.members?.sort((a, b) => a._id - b._id).map((user, index) => {
                                 const { username, _id } = user;
                                 return (
 
@@ -68,15 +72,15 @@ const AllTeamMembersTable = ({ teamData, id }) => {
                                                         style="dark"
                                                     >
                                                         <p className=''
-                                                            onClick={onClickErrorModal}>
+                                                            onClick={() => onClickErrorModal(index)}>
                                                             <MdDeleteForever size={24} color='red' />
                                                         </p>
                                                     </Tooltip>
                                                     {
-                                                        showErrorModalX && <Modal
+                                                        showErrorModalX[index] && <Modal
                                                             size="md"
-                                                            show={showErrorModalX}
-                                                            onClose={onClickErrorModal}
+                                                            show={showErrorModalX[index]}
+                                                            onClose={() => onClickErrorModal(index)}
                                                         >
                                                             <Modal.Header>Do you want to delete this user?</Modal.Header>
                                                             <Modal.Body>
@@ -87,11 +91,11 @@ const AllTeamMembersTable = ({ teamData, id }) => {
                                                                 </div>
                                                             </Modal.Body>
                                                             <Modal.Footer >
-                                                                <Button type="outlineGray" onClick={onClickErrorModal}>
+                                                                <Button type="outlineGray" onClick={() => onClickErrorModal(index)}>
                                                                     Cancel
                                                                 </Button>
                                                                 <Button type="primary" color="error"
-                                                                    onClick={() => unAssignedAUser(_id)}
+                                                                    onClick={() => unAssignedAUser(_id, index)}
                                                                 >
                                                                     Delete
                                                                 </Button>

@@ -4,7 +4,7 @@ import { fetchUsersAction } from "../actionCreators/userActions"
 const fetchUser = (token) => {
     return async (dispatch) => {
         try {
-            const res = await fetch('http://localhost:5000/api/v1/user', {
+            const res = await fetch('https://littleprogrammingserver.vercel.app/api/v1/user', {
                 method: 'GET',
                 headers: {
                     'Content-type': 'application/json',

@@ -5,7 +5,7 @@ const fetchSingleTeam = (id, token, navigate) => {
 
     return async (dispatch) => {
         try {
-            const res = await fetch(`http://localhost:5000/api/v1/team/teamInfo/${id}`, {
+            const res = await fetch(`https://littleprogrammingserver.vercel.app/api/v1/team/teamInfo/${id}`, {
                 method: 'GET',
                 headers: {
                     'Content-type': 'application.json',

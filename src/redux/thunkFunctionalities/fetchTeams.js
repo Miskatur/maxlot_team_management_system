@@ -4,7 +4,7 @@ import { fetchTeamAction } from "../actionCreators/teamActions"
 const fetchTeams = (token) => {
     return async (dispatch) => {
         try {
-            const res = await fetch('http://localhost:5000/api/v1/team/allTeam', {
+            const res = await fetch('https://littleprogrammingserver.vercel.app/api/v1/team/allTeam', {
                 method: 'GET',
                 headers: {
                     'Content-type': 'application/json',

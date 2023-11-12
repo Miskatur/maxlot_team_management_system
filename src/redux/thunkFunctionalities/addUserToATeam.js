@@ -4,7 +4,7 @@ import { assignAMemberToTeam } from "../actionCreators/teamActions"
 const addUserToATeam = (teamId, userId, token, handleAssignModal) => {
     return async (dispatch) => {
         try {
-            const res = await fetch(`http://localhost:5000/api/v1/team/assign/${teamId}/${userId}`, {
+            const res = await fetch(`https://littleprogrammingserver.vercel.app/api/v1/team/assign/${teamId}/${userId}`, {
                 method: 'PUT',
                 headers: {
                     'Content-type': 'application/json',

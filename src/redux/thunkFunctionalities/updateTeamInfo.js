@@ -4,7 +4,7 @@ import { updateASingleTeamInfo } from "../actionCreators/teamActions"
 const updateTeamInfo = (formData, teamId, token, handleModal) => {
     return async (dispatch) => {
         try {
-            const res = await fetch(`http://localhost:5000/api/v1/team/update-team/${teamId}`, {
+            const res = await fetch(`https://littleprogrammingserver.vercel.app/api/v1/team/update-team/${teamId}`, {
                 method: 'PUT',
                 body: JSON.stringify(formData),
                 headers: {

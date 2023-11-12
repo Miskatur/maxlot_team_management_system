@@ -1,10 +1,11 @@
 import { toast } from "react-toastify"
 import { deleteUserAction } from "../actionCreators/userActions"
 
-const deleteAUser = (id, token, onClickErrorModal) => {
+const deleteAUser = (id, token, onClickErrorModal, index) => {
     return async (dispatch) => {
         try {
-            const res = await fetch(`http://localhost:5000/api/v1/user/delete-user/${id}`, {
+            console.log(id);
+            const res = await fetch(`https://littleprogrammingserver.vercel.app/api/v1/user/delete-user/${id}`, {
                 method: 'DELETE',
                 headers: {
                     'Content-type': 'application/json',
@@ -14,8 +15,8 @@ const deleteAUser = (id, token, onClickErrorModal) => {
             const data = await res.json()
             if (data.status === 200) {
                 toast.success(data.message)
+                onClickErrorModal(index)
                 dispatch(deleteUserAction(data?.userId))
-                onClickErrorModal()
             }
             if (data.status === 401) {
                 toast.error(data.message)

@@ -10,9 +10,11 @@ const AllMembersTable = () => {
     const dispatch = useDispatch()
     const token = useToken()
 
-    const [showErrorModalX, setShowErrorModalX] = useState(false);
-    const onClickErrorModal = () => {
-        setShowErrorModalX(!showErrorModalX);
+    const [showErrorModalX, setShowErrorModalX] = React.useState(Array(users?.length).fill(false));
+    const onClickErrorModal = (index) => {
+        const newShowErrorModal = [...showErrorModalX];
+        newShowErrorModal[index] = !newShowErrorModal[index];
+        setShowErrorModalX(newShowErrorModal);
     };
 
     return (
@@ -32,7 +34,7 @@ const AllMembersTable = () => {
                     </thead>
                     <tbody>
                         {
-                            users?.map((user, index) => {
+                            users?.sort((a, b) => a._id - b._id).map((user, index) => {
                                 const { username, role, _id } = user;
                                 return (
 
@@ -59,15 +61,15 @@ const AllMembersTable = () => {
                                                 style="dark"
                                             >
                                                 <p className=''
-                                                    onClick={onClickErrorModal}>
+                                                    onClick={() => onClickErrorModal(index)}>
                                                     <MdDeleteForever size={24} color='red' />
                                                 </p>
                                             </Tooltip>
                                             {
-                                                showErrorModalX && <Modal
+                                                showErrorModalX[index] && <Modal
                                                     size="md"
-                                                    show={showErrorModalX}
-                                                    onClose={onClickErrorModal}
+                                                    show={showErrorModalX[index]}
+                                                    onClose={() => onClickErrorModal(index)}
                                                 >
                                                     <Modal.Header>Do you want to delete this user?</Modal.Header>
                                                     <Modal.Body>
@@ -78,11 +80,12 @@ const AllMembersTable = () => {
                                                         </div>
                                                     </Modal.Body>
                                                     <Modal.Footer >
-                                                        <Button type="outlineGray" onClick={onClickErrorModal}>
+                                                        <Button type="outlineGray" onClick={() => onClickErrorModal(index)}>
                                                             Cancel
                                                         </Button>
                                                         <Button type="primary" color="error"
-                                                            onClick={() => dispatch(deleteAUser(_id, token, onClickErrorModal))}>
+                                                            onClick={() =>
+                                                                dispatch(deleteAUser(_id, token, onClickErrorModal, index))}>
                                                             Delete
                                                         </Button>
                                                     </Modal.Footer>

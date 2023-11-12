@@ -4,7 +4,7 @@ import { createdTeamAction } from "../actionCreators/teamActions";
 const createTeam = (formData, token, handleModal) => {
     return async (dispatch) => {
         try {
-            const res = await fetch('http://localhost:5000/api/v1/team/create-team', {
+            const res = await fetch('https://littleprogrammingserver.vercel.app/api/v1/team/create-team', {
                 method: 'POST',
                 body: JSON.stringify(formData),
                 headers: {

@@ -3,7 +3,12 @@ import { ASSIGN_A_MEMBER_TYPE, CREATED_TEAM_TYPE, FETCHING_SINGLE_TEAM_TYPE, FET
 const initialState = {
     step: 1,
     allTeams: [],
-    singleTeam: {}
+    singleTeam: {
+        name: '',
+        category: '',
+        description: '',
+        members: []
+    }
 }
 
 const TeamReducer = (state = initialState, action) => {
@@ -47,7 +52,12 @@ const TeamReducer = (state = initialState, action) => {
         case UPDATE_SINGLE_TEAM_TYPE:
             return {
                 ...state,
-                singleTeam: action.payload
+                singleTeam: {
+                    ...state.singleTeam,
+                    name: action.payload.name,
+                    category: action.payload.category,
+                    description: action.payload.description,
+                }
             };
         case ASSIGN_A_MEMBER_TYPE:
             return {
@@ -62,7 +72,7 @@ const TeamReducer = (state = initialState, action) => {
                 ...state,
                 singleTeam: {
                     ...state.singleTeam,
-                    members: state.singleTeam.members.filter(member => member._id !== action.payload)
+                    members: state?.singleTeam?.members.filter(member => member._id !== action.payload)
                 }
             };
 
